@@ -11,13 +11,10 @@ class TwoLayerNet(object):
     A two-layer fully-connected neural network with ReLU nonlinearity and
     softmax loss that uses a modular layer design. We assume an input dimension
     of D, a hidden dimension of H, and perform classification over C classes.
-
     The architecure should be affine - relu - affine - softmax.
-
     Note that this class does not implement gradient descent; instead, it
     will interact with a separate Solver object that is responsible for running
     optimization.
-
     The learnable parameters of the model are stored in the dictionary
     self.params that maps parameter names to numpy arrays.
     """
@@ -32,7 +29,6 @@ class TwoLayerNet(object):
     ):
         """
         Initialize a new network.
-
         Inputs:
         - input_dim: An integer giving the size of the input
         - hidden_dim: An integer giving the size of the hidden layer
@@ -55,7 +51,10 @@ class TwoLayerNet(object):
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        self.params['W1'] = np.random.normal(scale=weight_scale, size=(input_dim, hidden_dim))
+        self.params['b1'] = np.zeros(hidden_dim)
+        self.params['W2'] = np.random.normal(scale=weight_scale, size=(hidden_dim, num_classes))
+        self.params['b2'] = np.zeros(num_classes)
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
@@ -65,16 +64,13 @@ class TwoLayerNet(object):
     def loss(self, X, y=None):
         """
         Compute loss and gradient for a minibatch of data.
-
         Inputs:
         - X: Array of input data of shape (N, d_1, ..., d_k)
         - y: Array of labels, of shape (N,). y[i] gives the label for X[i].
-
         Returns:
         If y is None, then run a test-time forward pass of the model and return:
         - scores: Array of shape (N, C) giving classification scores, where
           scores[i, c] is the classification score for X[i] and class c.
-
         If y is not None, then run a training-time forward and backward pass and
         return a tuple of:
         - loss: Scalar value giving the loss
@@ -88,7 +84,13 @@ class TwoLayerNet(object):
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        out1, cache1 = affine_forward(X, self.params['W1'], self.params['b1'])
+        out2, cache2 = relu_forward(out1)
+        out3, cache3 = affine_forward(out2, self.params['W2'], self.params['b2'])
+        loss, dx = softmax_loss(out3, y)
+        loss += 0.5 * self.reg * (np.sum(self.params['W1']*self.params['W1']) +
+                                  np.sum(self.params['W2']*self.params['W2']))
+        scores = out3
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
@@ -99,7 +101,8 @@ class TwoLayerNet(object):
         if y is None:
             return scores
 
-        loss, grads = 0, {}
+        # loss, grads = 0, {}
+        grads = {}
         ############################################################################
         # TODO: Implement the backward pass for the two-layer net. Store the loss  #
         # in the loss variable and gradients in the grads dictionary. Compute data #
@@ -112,7 +115,11 @@ class TwoLayerNet(object):
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        dx, grads['W2'], grads['b2'] = affine_backward(dx, cache3)
+        dx = relu_backward(dx, cache2)
+        _, grads['W1'], grads['b1'] = affine_backward(dx, cache1)
+        grads['W2'] += 2 * self.params['W2'] * self.reg
+        grads['W1'] += 2 * self.params['W1'] * self.reg
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
