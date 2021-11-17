@@ -19,6 +19,7 @@
 切身体会：初次接触这门课程，搞明白作业要求和形式***真的很麻烦***
 
 - 2021版本[assignment 1](https://cs231n.github.io/assignments/2021/assignment1_colab.zip )压缩包(作业内容基本一致)
+- 2021版本[assignment 2](https://cs231n.github.io/assignments/2021/assignment2_colab.zip )压缩包
 - [Cifar-10-python](http://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz)数据集（可以自行下载解压到dataset路径，也可以执行路径下的相应配置文件自动下载）
 
 ### 作业的内容
