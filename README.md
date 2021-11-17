@@ -1,6 +1,7 @@
 # Stanford CS231n 自学资料
 
 - 持续更新（如果不偷懒）
+- 已更新assignment1
 
 ## 课程
 
