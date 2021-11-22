@@ -1,6 +1,7 @@
 # Stanford CS231n 自学资料
 
 - 持续更新（如果不偷懒）
+- 已更新assignment1
 
 ## 课程
 
@@ -18,6 +19,7 @@
 切身体会：初次接触这门课程，搞明白作业要求和形式***真的很麻烦***
 
 - 2021版本[assignment 1](https://cs231n.github.io/assignments/2021/assignment1_colab.zip )压缩包(作业内容基本一致)
+- 2021版本[assignment 2](https://cs231n.github.io/assignments/2021/assignment2_colab.zip )压缩包
 - [Cifar-10-python](http://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz)数据集（可以自行下载解压到dataset路径，也可以执行路径下的相应配置文件自动下载）
 
 ### 作业的内容
@@ -71,4 +73,6 @@
   我们需要做的就是在  ***pass***  的地方补全代码，实现要求的功能。例如，在此处的目标是通过两层循环实现L2距离的计算。
 - 在所有地方完成填空之后，在Jupyter中逐步运行.ipynb文件（点击每个cell，按住Shift+Enter），即可得到相应结果。
   
-
+## Tricks
+1. 作业中的正向传播和反向传播基本由numpy矩阵计算实现。其中反向传播时，利用矩阵向量计算局部梯度较为抽象，建议可以先尝试在低维度自行计算单个数据点的情况（而非一批N个数据一起计算），再类推至一个batch的情况。
+2. 作业整体是基于numpy实现的，如果对numpy的基本知识、操作和数据维度等不太熟悉（**尤其是维度，非常容易出问题**），建议首先学习numpy知识，并可以自行创建一个小的验证程序，随时对不确定的操作、维度等进行实例化输出验证。CS231n官方亦非常重视这一点，且提供了关于[numpy基本知识的介绍](https://cs231n.github.io/python-numpy-tutorial/)，可以首先学习。
